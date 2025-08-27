@@ -71,13 +71,16 @@ open http://localhost:3000
 ---
 
 ## 🌐 Deployment
--Deployment is done with Vercel (GitHub integration).
--Set the same environment variables in the Vercel dashboard:
 
---NEXT_PUBLIC_SUPABASE_URL
---NEXT_PUBLIC_SUPABASE_ANON_KEY
+**Vercel (GitHub integration)**
 
--Public healthcheck: GET /api/health → { ok: true }.
+1. Import the GitHub repo in Vercel.
+2. Add these environment variables in **Settings → Environment Variables**:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://<project>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>
+```
 
 ---
 
