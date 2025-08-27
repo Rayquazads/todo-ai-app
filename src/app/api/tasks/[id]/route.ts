@@ -4,9 +4,11 @@ import { supabaseAdmin } from "@/lib/supabaseAdmin";
 type TaskUpdate = { title?: string; completed?: boolean };
 
 // PATCH /api/tasks/:id
-export async function PATCH(req: Request, context: { params: { id: string } }) {
+export async function PATCH(req: Request, context: unknown) {
   try {
-    const { id } = context.params;
+    const { params } = context as { params: { id: string } };
+    const id = params.id;
+
     const body = (await req.json()) as TaskUpdate;
 
     const updates: TaskUpdate = {};
@@ -24,16 +26,17 @@ export async function PATCH(req: Request, context: { params: { id: string } }) {
       .select();
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json(data[0], { status: 200 });
+    return NextResponse.json(data?.[0] ?? null, { status: 200 });
   } catch (err) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });
   }
 }
 
 // DELETE /api/tasks/:id
-export async function DELETE(_req: Request, context: { params: { id: string } }) {
+export async function DELETE(_req: Request, context: unknown) {
   try {
-    const { id } = context.params;
+    const { params } = context as { params: { id: string } };
+    const id = params.id;
 
     const { error } = await supabaseAdmin.from("tasks").delete().eq("id", id);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
