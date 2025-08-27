@@ -16,6 +16,24 @@ const TaskList = forwardRef<TaskListRef>((props, ref) => {
     setTasks(data);
   }
 
+  async function toggleTask(id: number, completed: boolean) {
+    await fetch(`/api/tasks/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ completed })
+    });
+    loadTasks();
+  }
+
+  async function updateTitle(id: number, title: string) {
+    await fetch(`/api/tasks/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title })
+    });
+    loadTasks();
+  }
+
   async function deleteTask(id: number) {
     await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
     loadTasks();
@@ -29,11 +47,19 @@ const TaskList = forwardRef<TaskListRef>((props, ref) => {
     <ul className="mt-4 space-y-2">
       {tasks.map(t => (
         <li key={t.id} className="border rounded p-3 flex items-center gap-3">
-          {/* checkbox */}
-          <input type="checkbox" checked={t.completed} readOnly />
+          {/* checkbox → atualiza completed */}
+          <input
+            type="checkbox"
+            checked={t.completed}
+            onChange={(e) => toggleTask(t.id, e.target.checked)}
+          />
 
-          {/* título */}
-          <span>{t.title}</span>
+          {/* título editável inline */}
+          <input
+            defaultValue={t.title}
+            onBlur={(e) => updateTitle(t.id, e.target.value)}
+            className="flex-1 outline-none"
+          />
 
           {/* botão deletar */}
           <button
