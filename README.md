@@ -56,6 +56,8 @@ create index if not exists tasks_created_at_idx
   on public.tasks(created_at desc);
 ```
 
+---
+
 ##🚀 Run Locally
 git clone https://github.com/Rayquazads/todo-ai-app.git
 cd todo-ai-app
@@ -65,6 +67,8 @@ npm install
 # NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 npm run dev
 # open http://localhost:3000
+
+---
 
 ##🌐 Deployment
 Deployment is done with Vercel (GitHub integration).
@@ -76,6 +80,8 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 Public healthcheck: GET /api/health → { ok: true }.
 
+---
+
 ##🔌 Integration points (for n8n – Day 3)
 Read/write on public.tasks (via Supabase REST or custom API endpoint)
 
@@ -85,6 +91,8 @@ Suggested metadata: source = 'bot' | 'app' | 'whatsapp'
 
 (Bonus) Trigger only on messages containing #to-do list
 
+---
+
 ##📹 Deliverables (challenge)
 ✅ Deployed webapp (Vercel)
 
@@ -93,6 +101,8 @@ Suggested metadata: source = 'bot' | 'app' | 'whatsapp'
 🔄 n8n access (URL/login/password) — upcoming
 
 🔄 Loom video (5–10min) explaining solution & demo
+
+---
 
 ##👤 Author
 Gabriel Costa – Automation / Integrations / AI
