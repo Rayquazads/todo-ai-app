@@ -62,11 +62,11 @@ create index if not exists tasks_created_at_idx
 git clone https://github.com/Rayquazads/todo-ai-app.git
 cd todo-ai-app
 npm install
-# create .env.local at the project root:
-# NEXT_PUBLIC_SUPABASE_URL=...
-# NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+create .env.local at the project root:
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 npm run dev
-# open http://localhost:3000
+open http://localhost:3000
 
 ---
 
