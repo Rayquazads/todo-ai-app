@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState, forwardRef, useImperativeHandle } from 'react';
+import { Trash2 } from 'lucide-react';
 
 type Task = { id: number; title: string; enhanced_title: string | null; completed: boolean };
 
@@ -57,6 +58,7 @@ const TaskList = forwardRef<TaskListRef>((_props, ref) => {
             onChange={(e) => toggleTask(t.id, e.target.checked)}
             className="cursor-pointer"
             aria-label={`Mark task "${t.title}" as ${t.completed ? 'incomplete' : 'complete'}`}
+            title={t.completed ? 'Mark as incomplete' : 'Mark as complete'}
           />
 
           {/* título (span riscado se completed, input editável se não) */}
@@ -68,6 +70,7 @@ const TaskList = forwardRef<TaskListRef>((_props, ref) => {
               onBlur={(e) => updateTitle(t.id, e.target.value)}
               className="flex-1 outline-none"
               aria-label={`Edit title for task "${t.title}"`}
+              title="Click outside to save"
             />
           )}
 
@@ -75,8 +78,10 @@ const TaskList = forwardRef<TaskListRef>((_props, ref) => {
           <button
             onClick={() => deleteTask(t.id)}
             aria-label={`Delete task "${t.title}"`}
-            className="px-2 py-1 rounded bg-red-500 text-white text-sm hover:bg-red-600 transition"
+            title="Delete task"
+            className="flex items-center gap-1 px-2 py-1 rounded bg-red-500 text-white text-sm hover:bg-red-600 transition cursor-pointer"
           >
+            <Trash2 size={16} />
             Delete
           </button>
 

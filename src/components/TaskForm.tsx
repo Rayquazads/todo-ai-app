@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { Plus } from 'lucide-react';
 
 export default function TaskForm({ onAdd }: { onAdd: () => void }) {
   const [title, setTitle] = useState('');
@@ -31,9 +32,11 @@ export default function TaskForm({ onAdd }: { onAdd: () => void }) {
       <button
         onClick={addTask}
         disabled={loading}
-        className="px-4 py-2 rounded bg-black text-white disabled:opacity-50"
+        className="flex items-center gap-2 px-4 py-2 rounded bg-black text-white disabled:opacity-50 cursor-pointer"
+        aria-label="Add task"
+        title="Add task"
       >
-        {loading ? "..." : "Add"}
+        {loading ? "..." : (<><Plus size={16} /> Add</>)}
       </button>
     </div>
   );
