@@ -71,40 +71,32 @@ npm run dev
 ---
 
 ##🌐 Deployment
-Deployment is done with Vercel (GitHub integration).
-Set the same environment variables in the Vercel dashboard:
+-Deployment is done with Vercel (GitHub integration).
+-Set the same environment variables in the Vercel dashboard:
 
-NEXT_PUBLIC_SUPABASE_URL
+--NEXT_PUBLIC_SUPABASE_URL
+--NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-Public healthcheck: GET /api/health → { ok: true }.
+-Public healthcheck: GET /api/health → { ok: true }.
 
 ---
 
 ##🔌 Integration points (for n8n – Day 3)
-Read/write on public.tasks (via Supabase REST or custom API endpoint)
-
-AI output stored in enhanced_title
-
-Suggested metadata: source = 'bot' | 'app' | 'whatsapp'
-
-(Bonus) Trigger only on messages containing #to-do list
+-Read/write on public.tasks (via Supabase REST or custom API endpoint)
+-AI output stored in enhanced_title
+-Suggested metadata: source = 'bot' | 'app' | 'whatsapp'
+-(Bonus) Trigger only on messages containing #to-do list
 
 ---
 
 ##📹 Deliverables (challenge)
 ✅ Deployed webapp (Vercel)
-
 ✅ Public GitHub repository
-
 🔄 n8n access (URL/login/password) — upcoming
-
 🔄 Loom video (5–10min) explaining solution & demo
 
 ---
 
 ##👤 Author
 Gabriel Costa – Automation / Integrations / AI
-
 LinkedIn = https://www.linkedin.com/in/gabriel-costa-a565a5331/
