@@ -1,3 +1,4 @@
+'use client';
 import { useRef } from 'react';
 import TaskForm from '@/components/TaskForm';
 import TaskList, { TaskListRef } from '@/components/TaskList';
