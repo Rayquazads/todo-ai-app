@@ -1,13 +1,13 @@
 'use client';
 import { useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 
-type Task = { id:number; title:string; enhanced_title:string|null; completed:boolean };
+type Task = { id: number; title: string; enhanced_title: string | null; completed: boolean };
 
 export type TaskListRef = {
   loadTasks: () => void;
 };
 
-const TaskList = forwardRef<TaskListRef>((props, ref) => {
+const TaskList = forwardRef<TaskListRef>((_props, ref) => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   async function loadTasks() {
@@ -20,7 +20,7 @@ const TaskList = forwardRef<TaskListRef>((props, ref) => {
     await fetch(`/api/tasks/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ completed })
+      body: JSON.stringify({ completed }),
     });
     loadTasks();
   }
@@ -29,7 +29,7 @@ const TaskList = forwardRef<TaskListRef>((props, ref) => {
     await fetch(`/api/tasks/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title })
+      body: JSON.stringify({ title }),
     });
     loadTasks();
   }
@@ -41,30 +41,41 @@ const TaskList = forwardRef<TaskListRef>((props, ref) => {
 
   useImperativeHandle(ref, () => ({ loadTasks }));
 
-  useEffect(() => { loadTasks(); }, []);
+  useEffect(() => {
+    loadTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ul className="mt-4 space-y-2">
-      {tasks.map(t => (
+      {tasks.map((t) => (
         <li key={t.id} className="border rounded p-3 flex items-center gap-3">
           {/* checkbox → atualiza completed */}
           <input
             type="checkbox"
             checked={t.completed}
             onChange={(e) => toggleTask(t.id, e.target.checked)}
+            className="cursor-pointer"
+            aria-label={`Mark task "${t.title}" as ${t.completed ? 'incomplete' : 'complete'}`}
           />
 
-          {/* título editável inline */}
-          <input
-            defaultValue={t.title}
-            onBlur={(e) => updateTitle(t.id, e.target.value)}
-            className="flex-1 outline-none"
-          />
+          {/* título (span riscado se completed, input editável se não) */}
+          {t.completed ? (
+            <span className="flex-1 line-through text-gray-400">{t.title}</span>
+          ) : (
+            <input
+              defaultValue={t.title}
+              onBlur={(e) => updateTitle(t.id, e.target.value)}
+              className="flex-1 outline-none"
+              aria-label={`Edit title for task "${t.title}"`}
+            />
+          )}
 
           {/* botão deletar */}
           <button
             onClick={() => deleteTask(t.id)}
-            className="px-2 py-1 rounded bg-red-500 text-white text-sm"
+            aria-label={`Delete task "${t.title}"`}
+            className="px-2 py-1 rounded bg-red-500 text-white text-sm hover:bg-red-600 transition"
           >
             Delete
           </button>
