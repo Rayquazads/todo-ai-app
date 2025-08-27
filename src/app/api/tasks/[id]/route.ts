@@ -1,17 +1,13 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
-type TaskUpdate = {
-  title?: string;
-  completed?: boolean;
-};
+type TaskUpdate = { title?: string; completed?: boolean };
 
-export async function PATCH(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+// PATCH /api/tasks/:id
+export async function PATCH(req: Request, context: { params: { id: string } }) {
   try {
-    const body: TaskUpdate = await req.json();
+    const { id } = context.params;
+    const body = (await req.json()) as TaskUpdate;
 
     const updates: TaskUpdate = {};
     if (body.title !== undefined) updates.title = body.title;
@@ -24,7 +20,7 @@ export async function PATCH(
     const { data, error } = await supabaseAdmin
       .from("tasks")
       .update(updates)
-      .eq("id", params.id)
+      .eq("id", id)
       .select();
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
@@ -34,17 +30,14 @@ export async function PATCH(
   }
 }
 
-export async function DELETE(
-  _req: Request,
-  { params }: { params: { id: string } }
-) {
+// DELETE /api/tasks/:id
+export async function DELETE(_req: Request, context: { params: { id: string } }) {
   try {
-    const { error } = await supabaseAdmin
-      .from("tasks")
-      .delete()
-      .eq("id", params.id);
+    const { id } = context.params;
 
+    const { error } = await supabaseAdmin.from("tasks").delete().eq("id", id);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });
