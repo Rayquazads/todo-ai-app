@@ -70,7 +70,7 @@ NEXT_PUBLIC_SUPABASE_URL=...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 
 npm run dev
-# open http://localhost:3000
+open http://localhost:3000
 
 ---
 
