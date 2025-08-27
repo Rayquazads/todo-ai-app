@@ -59,14 +59,18 @@ create index if not exists tasks_created_at_idx
 ---
 
 ## 🚀 Run Locally
+
+```bash
 git clone https://github.com/Rayquazads/todo-ai-app.git
 cd todo-ai-app
 npm install
+```
 create .env.local at the project root:
 NEXT_PUBLIC_SUPABASE_URL=...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+
 npm run dev
-open http://localhost:3000
+# open http://localhost:3000
 
 ---
 
@@ -82,21 +86,28 @@ NEXT_PUBLIC_SUPABASE_URL=https://<project>.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>
 ```
 
----
-
-## 🔌 Integration points (for n8n – Day 3)
--Read/write on public.tasks (via Supabase REST or custom API endpoint)
--AI output stored in enhanced_title
--Suggested metadata: source = 'bot' | 'app' | 'whatsapp'
--(Bonus) Trigger only on messages containing #to-do list
 
 ---
 
-## 📹 Deliverables (challenge)
-✅ Deployed webapp (Vercel)
-✅ Public GitHub repository
-🔄 n8n access (URL/login/password) — upcoming
-🔄 Loom video (5–10min) explaining solution & demo
+### ✅ Integration points
+
+```md
+## 🧩 Integration points (for n8n – Day 3)
+
+- Read/write on `public.tasks` (via Supabase REST or a custom API endpoint)
+- AI output stored in **`enhanced_title`**
+- Suggested metadata: **`source = 'bot' | 'app' | 'whatsapp'`**
+- *(Bonus)* Trigger only on messages containing **`#to-do list`**
+```
+
+---
+
+## 📦 Deliverables (challenge)
+
+- ✅ Deployed webapp (Vercel)
+- ✅ Public GitHub repository
+- 🔄 n8n access (URL / login / password) — upcoming
+- 🔄 Loom video (5–10 min) explaining solution & demo
 
 ---
 
