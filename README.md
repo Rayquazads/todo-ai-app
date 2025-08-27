@@ -58,7 +58,7 @@ create index if not exists tasks_created_at_idx
 
 ---
 
-##🚀 Run Locally
+## 🚀 Run Locally
 git clone https://github.com/Rayquazads/todo-ai-app.git
 cd todo-ai-app
 npm install
@@ -70,7 +70,7 @@ npm run dev
 
 ---
 
-##🌐 Deployment
+## 🌐 Deployment
 -Deployment is done with Vercel (GitHub integration).
 -Set the same environment variables in the Vercel dashboard:
 
@@ -81,7 +81,7 @@ npm run dev
 
 ---
 
-##🔌 Integration points (for n8n – Day 3)
+## 🔌 Integration points (for n8n – Day 3)
 -Read/write on public.tasks (via Supabase REST or custom API endpoint)
 -AI output stored in enhanced_title
 -Suggested metadata: source = 'bot' | 'app' | 'whatsapp'
@@ -89,7 +89,7 @@ npm run dev
 
 ---
 
-##📹 Deliverables (challenge)
+## 📹 Deliverables (challenge)
 ✅ Deployed webapp (Vercel)
 ✅ Public GitHub repository
 🔄 n8n access (URL/login/password) — upcoming
@@ -97,6 +97,6 @@ npm run dev
 
 ---
 
-##👤 Author
+## 👤 Author
 Gabriel Costa – Automation / Integrations / AI
 LinkedIn = https://www.linkedin.com/in/gabriel-costa-a565a5331/
