@@ -112,5 +112,5 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>
 ---
 
 ## 👤 Author
-Gabriel Costa – Automation / Integrations / AI
-LinkedIn = https://www.linkedin.com/in/gabriel-costa-a565a5331/
+- Gabriel Costa – Automation / Integrations / AI
+- LinkedIn = https://www.linkedin.com/in/gabriel-costa-a565a5331/
