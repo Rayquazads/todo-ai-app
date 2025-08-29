@@ -1,20 +1,20 @@
 'use client';
-import { useRef } from 'react';
+
+import { useRouter } from 'next/navigation';
 import TaskForm from '@/components/TaskForm';
-import TaskList, { TaskListRef } from '@/components/TaskList';
+import TaskList from '@/components/TaskList';
 
 export default function Home() {
-  const listRef = useRef<TaskListRef>(null);
+  const router = useRouter();
 
-  function handleRefresh() {
-    listRef.current?.loadTasks();
+  function handleCreated() {
+    router.refresh();
   }
 
   return (
-    <main className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-semibold mb-4">To-Do AI</h1>
-      <TaskForm onAdd={handleRefresh} />
-      <TaskList ref={listRef} />
+    <main className="container mx-auto p-6">
+      <TaskForm onAdd={handleCreated} />
+      <TaskList />
     </main>
   );
 }
