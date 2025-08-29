@@ -6,8 +6,12 @@ interface UpdateTaskBody {
   completed?: boolean;
 }
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
-  const id = params.id;
+// helper para tipar o contexto localmente, sem expor no signature do handler
+type CtxWithId = { params: { id: string } };
+
+export async function GET(_req: Request, ctx: unknown) {
+  const { id } = (ctx as CtxWithId).params;
+
   const { data, error } = await supabaseAdmin
     .from("tasks")
     .select("*")
@@ -18,8 +22,8 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
   return NextResponse.json(data, { status: 200 });
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
-  const id = params.id;
+export async function PATCH(req: Request, ctx: unknown) {
+  const { id } = (ctx as CtxWithId).params;
   const raw = (await req.json()) as Partial<UpdateTaskBody>;
 
   const fields: Partial<{ title: string; completed: boolean }> = {};
@@ -41,10 +45,10 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   return NextResponse.json(data, { status: 200 });
 }
 
-export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
-  const id = params.id;
-  const { error } = await supabaseAdmin.from("tasks").delete().eq("id", id);
+export async function DELETE(_req: Request, ctx: unknown) {
+  const { id } = (ctx as CtxWithId).params;
 
+  const { error } = await supabaseAdmin.from("tasks").delete().eq("id", id);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ ok: true }, { status: 200 });
 }
