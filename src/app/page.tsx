@@ -5,21 +5,22 @@ import { useEffect } from 'react';
 import TaskForm from '@/components/TaskForm';
 import TaskList from '@/components/TaskList';
 
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? 'To-Do AI App';
+
 export default function Home() {
   const router = useRouter();
 
   function handleCreated() {
-    router.refresh(); // atualiza imediatamente pra mostrar a task criada
+    router.refresh();
   }
 
-  // 🔁 Após criar, ouvir "tasks:refresh" e fazer polling do /api/tasks/:id
   useEffect(() => {
     function onRefresh(e: Event) {
       const id = (e as CustomEvent).detail?.id as string | number | undefined;
       if (!id) return;
 
       let active = true;
-      const deadline = Date.now() + 20_000; // até 20s esperando o N8N
+      const deadline = Date.now() + 20_000;
       const tick = async () => {
         if (!active) return;
         try {
@@ -27,15 +28,14 @@ export default function Home() {
           if (res.ok) {
             const row = await res.json();
             if (row?.enhanced_title) {
-              router.refresh(); // agora o título enriquecido aparece
+              router.refresh();
               active = false;
               return;
             }
           }
-        } catch { /* silencioso */ }
+        } catch {}
         if (Date.now() < deadline) setTimeout(tick, 1200);
       };
-
       tick();
     }
 
@@ -45,6 +45,9 @@ export default function Home() {
 
   return (
     <main className="container mx-auto p-6">
+      {/* ✅ título restaurado no topo, sem mudar o restante */}
+      <h1 className="text-2xl font-semibold mb-4">{APP_NAME}</h1>
+
       <TaskForm onAdd={handleCreated} />
       <TaskList />
     </main>
