@@ -1,16 +1,12 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
-interface Params {
-  params: { id: string };
-}
-
 interface UpdateTaskBody {
   title?: string;
   completed?: boolean;
 }
 
-export async function GET(_req: Request, { params }: Params) {
+export async function GET(_req: Request, { params }: { params: { id: string } }) {
   const id = params.id;
   const { data, error } = await supabaseAdmin
     .from("tasks")
@@ -22,7 +18,7 @@ export async function GET(_req: Request, { params }: Params) {
   return NextResponse.json(data, { status: 200 });
 }
 
-export async function PATCH(req: Request, { params }: Params) {
+export async function PATCH(req: Request, { params }: { params: { id: string } }) {
   const id = params.id;
   const raw = (await req.json()) as Partial<UpdateTaskBody>;
 
@@ -45,7 +41,7 @@ export async function PATCH(req: Request, { params }: Params) {
   return NextResponse.json(data, { status: 200 });
 }
 
-export async function DELETE(_req: Request, { params }: Params) {
+export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
   const id = params.id;
   const { error } = await supabaseAdmin.from("tasks").delete().eq("id", id);
 
