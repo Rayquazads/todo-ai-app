@@ -33,7 +33,7 @@ export default function Home() {
               return;
             }
           }
-        } catch {}
+        } catch { }
         if (Date.now() < deadline) setTimeout(tick, 1200);
       };
       tick();
@@ -43,13 +43,15 @@ export default function Home() {
     return () => window.removeEventListener('tasks:refresh', onRefresh as EventListener);
   }, [router]);
 
+  // src/app/page.tsx
   return (
     <main className="container mx-auto p-6">
-      {/* ✅ título restaurado no topo, sem mudar o restante */}
-      <h1 className="text-2xl font-semibold mb-4">{APP_NAME}</h1>
-
-      <TaskForm onAdd={handleCreated} />
-      <TaskList />
+      <div className="max-w-3xl mx-auto"> {/* limita e centraliza o bloco */}
+        <h1 className="text-2xl font-semibold mb-4 text-center">{APP_NAME}</h1>
+        <TaskForm onAdd={handleCreated} />
+        <TaskList />
+      </div>
     </main>
   );
+
 }
