@@ -6,11 +6,14 @@ interface UpdateTaskBody {
   completed?: boolean;
 }
 
-// helper para tipar o contexto localmente, sem expor no signature do handler
-type CtxWithId = { params: { id: string } };
+type CtxParams = { params: Promise<{ id: string }> };
+async function getId(ctx: unknown): Promise<string> {
+  const { id } = await (ctx as CtxParams).params;
+  return id;
+}
 
 export async function GET(_req: Request, ctx: unknown) {
-  const { id } = (ctx as CtxWithId).params;
+  const id = await getId(ctx);
 
   const { data, error } = await supabaseAdmin
     .from("tasks")
@@ -23,7 +26,7 @@ export async function GET(_req: Request, ctx: unknown) {
 }
 
 export async function PATCH(req: Request, ctx: unknown) {
-  const { id } = (ctx as CtxWithId).params;
+  const id = await getId(ctx);
   const raw = (await req.json()) as Partial<UpdateTaskBody>;
 
   const fields: Partial<{ title: string; completed: boolean }> = {};
@@ -46,7 +49,7 @@ export async function PATCH(req: Request, ctx: unknown) {
 }
 
 export async function DELETE(_req: Request, ctx: unknown) {
-  const { id } = (ctx as CtxWithId).params;
+  const id = await getId(ctx);
 
   const { error } = await supabaseAdmin.from("tasks").delete().eq("id", id);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
