@@ -106,8 +106,8 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon-key>
 
 - ✅ Deployed webapp (Vercel)
 - ✅ Public GitHub repository
-- 🔄 n8n access (URL / login / password) — upcoming
-- 🔄 Loom video (5–10 min) explaining solution & demo
+- ✅ n8n access (URL / login / password) — upcoming
+- ✅ Loom video (5–10 min) explaining solution & demo
 
 ---
 
